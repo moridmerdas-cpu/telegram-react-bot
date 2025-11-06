@@ -1,5 +1,20 @@
 import os
-os.system("pip install python-telegram-bot==21.4")
+import sys
+import subprocess
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", package])
+
+# نصب خودکار کتابخانه‌ها
+try:
+    import telegram
+except ImportError:
+    install("python-telegram-bot")
+
+try:
+    import requests
+except ImportError:
+    install("requests")
 import telebot
 from config import MOTHER_BOT_TOKEN, OWNER_ID, CHILD_BOTS
 import child_bots
@@ -54,4 +69,5 @@ if __name__ == "__main__":
     # چند ثانیه صبر می‌کنه تا بچه‌ها لود بشن
     time.sleep(3)
     bot.polling(non_stop=True)
+
 
